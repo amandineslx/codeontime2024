@@ -20,19 +20,16 @@ def compute():
     max = 0
     while in_it < len(ins) and out_it < len(outs):
         if ins[in_it] < outs[out_it]:
-            print(f"{ins[in_it]} smaller than {outs[out_it]}")
-            in_it = in_it+1
-            instantaneous = instantaneous+1
+            in_it += 1
+            instantaneous += 1
             if instantaneous > max:
                 max = instantaneous
         elif ins[in_it] > outs[out_it]:
-            print(f"{ins[in_it]} greater than {outs[out_it]}")
-            out_it = out_it+1
-            instantaneous = instantaneous-1
+            out_it += 1
+            instantaneous -= 1
         else:
-            print(f"{ins[in_it]} equals {outs[out_it]}")
-            in_it = in_it+1
-            out_it = out_it+1
+            in_it += 1
+            out_it += 1
     return max
 
 def main():
