@@ -1,6 +1,6 @@
-INPUT_FILE = '04-input5.txt'
+INPUT_FILE = '04-input2.txt'
 OUTPUT_FILE = "04-result.txt"
-RUNNERS_PER_TEAM = 128
+RUNNERS_PER_TEAM = 4
 
 class Runner:
     def __init__(self, number, time_s):
@@ -71,9 +71,22 @@ def compute():
             runners.append(runner)
     runners.sort(key=lambda r: r.time)
     teams = [Team([]) for t in range(number_of_teams)]
-    for i in range(len(runners)):
-        team_number = i%number_of_teams
+    quartile = int(len(runners)/4)
+    end_of_first_section = quartile*3
+    end_of_first_teams = int(end_of_first_section/RUNNERS_PER_TEAM)
+    print(f"End of first teams {end_of_first_teams}")
+    for i in range(end_of_first_section):
+        team_number = i%int(number_of_teams*3/4)
         teams[team_number].add_runner(runners[i])
+    for i in range(quartile):
+        runner_index = end_of_first_section + i
+        print(end_of_first_teams)
+        print(len(teams))
+        print(i)
+        team_number = end_of_first_teams + i%(len(teams)-end_of_first_teams)
+        print(team_number)
+        runner = runners[runner_index]
+        teams[team_number].add_runner(runner)
     teams.sort(key=lambda t: t.total)
     print(f"Computed score: {compute_score(teams[0], teams[-1])}")
     return write_result_to_file(get_team_compositions(teams))
